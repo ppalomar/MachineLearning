@@ -1,1 +1,1 @@
-# machine-learning-hello-world
+# MachineLearning
