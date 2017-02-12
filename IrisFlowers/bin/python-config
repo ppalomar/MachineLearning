@@ -1,4 +1,4 @@
-#!/Users/ppalomar/Code/Me/MachineLearning/helloWorld/bin/python
+#!/Users/ppalomar/Code/Me/MachineLearning/IrisFlowers/bin/python
 
 import sys
 import getopt

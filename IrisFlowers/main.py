@@ -1,52 +1,29 @@
-# Load libraries
-import pandas
-from pandas.tools.plotting import scatter_matrix
-import matplotlib.pyplot as plt
-from sklearn import model_selection
-from sklearn.metrics import classification_report
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import accuracy_score
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.naive_bayes import GaussianNB
-from sklearn.svm import SVC
+import numpy as np
+from sklearn.datasets import load_iris
+from sklearn import tree
+iris = load_iris()
+test_idx = [0, 50, 100]
 
+setosa = 0
+versicolor = 1
+virginica = 2
 
-def load_dataset():
-    url = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
-    names = ['sepal-length', 'sepal-width',
-             'petal-length', 'petal-width', 'class']
-    return pandas.read_csv(url, names=names)
+# training data
+training_target = np.delete(iris.target, test_idx)
+training_data = np.delete(iris.data, test_idx, axis=0)
 
+# test data
+test_target = iris.target[test_idx]
+test_data = iris.data[test_idx]
 
-def different_data_visualizations(dataset):
-	# print(dataset.shape)
-    # print(dataset.head(20))
-    # print(dataset.describe())
-    # print(dataset.groupby('class').size())
-    # dataset.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
-    # dataset.hist()
-    # scatter_matrix(dataset)
-    # plt.show()
+# print iris.feature_names
+# print iris.target_names
+# print iris.data[0]
+# print iris.target[0]
 
+clf = tree.DecisionTreeClassifier().fit(training_data, training_target)
+print test_target # result [0, 1, 2]
+print clf.predict(test_data) # result [0, 1, 2]
 
-def validation_dataset(dataset):
-	array = dataset.values
-	X = array[:,0:4]
-	Y = array[:,4]
-	validation_size = 0.20
-	seed = 7
-	X_train, X_validation, Y_train, Y_validation = model_selection.train_test_split(X, Y, test_size=validation_size, random_state=seed)
+# https://www.youtube.com/watch?v=tNa99PG8hR8
 
-
-def main():
-    dataset = load_dataset()
-    # different_data_visualizations(dataset)
-
-    
-
-
-if __name__ == '__main__':
-    main()
